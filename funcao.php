@@ -3,7 +3,7 @@
 function conectarBanco()
 {
     try {
-        $conexao = new PDO("mysql:host=localhost:3306; dbname=Biblioteca", "root", "");
+        $conexao = new PDO("mysql:host=localhost:3306; dbname=biblioteca", "root", "");
         return $conexao;
     } catch (Exception $e) {
         return 0;
@@ -59,7 +59,7 @@ function adicionarEmprestimo($alunoID, $livrosID, $revistasID)
 {
     try {
         $conexao = conectarBanco();
-        $sql = "INSERT INTO Emprestimo (AlunoID, LivrosID, RevistasID) VALUES (:alunoID, :livrosID :revistasID)";
+        $sql = "INSERT INTO Emprestimo (AlunoID, LivrosID, RevistasID) VALUES (:alunoID, :livrosID, :revistasID)";
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':alunoID', $alunoID);
         $stmt->bindValue(':livrosID', $livrosID);
@@ -156,7 +156,7 @@ function buscarRevistasPorId($id)
     }
 }
 
-function atualizarAluno($id, $nome, $idade, $tipoPlano)
+function atualizarAluno($id, $nome, $curso, $matricula)
 {
     try {
         $conexao = conectarBanco();
@@ -179,7 +179,7 @@ function atualizarLivros($id, $autor, $titulo, $anoPublicacaoLivros)
         $sql = "UPDATE Livros SET Autor = :autor, Titulo = :titulo, AnoPublicacaoLivros = :anoPublicacaoLivros WHERE ID = :id";
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':autor', $nome);
+        $stmt->bindValue(':autor', $autor);
         $stmt->bindValue(':titulo', $titulo);
         $stmt->bindValue(':anoPublicacaoLivros', $anoPublicacaoLivros);      
         return $stmt->execute();
@@ -188,7 +188,7 @@ function atualizarLivros($id, $autor, $titulo, $anoPublicacaoLivros)
     }
 }
 
-function atualizarRevistas($id, $nome, $horario, $instrutorID)
+function atualizarRevistas($id, $tituloRevistas, $volume, $anoPublicacaoRevistas)
 {
     try {
         $conexao = conectarBanco();
@@ -242,16 +242,14 @@ function deletarRevistas($id)
         return 0;
     }
 }
-//ajustar deletar - com problemas ainda.
-function deletarEmprestimos($alunoID, $livrosID, $livrosID)
+
+function deletarEmprestimos($alunoID, $livrosID)
 {
     try {
         $conexao = conectarBanco();
         $sql = "DELETE FROM Emprestimo WHERE AlunoID = :alunoID AND LivrosID = :livrosID";
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':alunoID', $alunoID);
-        $stmt->bindValue(':livrosID', $livrosID);
-        $stmt->bindValue(':revistasID', $revistasID);
         return $stmt->execute();
     } catch (Exception $e) {
         return 0;
