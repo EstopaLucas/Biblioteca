@@ -180,7 +180,7 @@ function atualizarLivros($id, $autor, $titulo, $anoPublicacaoLivros)
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':autor', $nome);
-        $stmt->bindValue(':titulo', $especialidade);
+        $stmt->bindValue(':titulo', $titulo);
         $stmt->bindValue(':anoPublicacaoLivros', $anoPublicacaoLivros);      
         return $stmt->execute();
     } catch (Exception $e) {
