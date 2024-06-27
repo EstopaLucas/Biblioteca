@@ -34,9 +34,9 @@ require_once('../header.php');
                         <td><?= $livros['Titulo'] ?></td>
                         <td><?= $revistas['TituloRevistas'] ?></td>
                         <td>
-                            <button class="btn btn-danger" onclick="if(confirm('Deseja realmente excluir este emprestimo?')) window.location.href = 'index.php?alunoId=<?= $alunoId ?>&livrosId=<?= $livrosId ?>&revistasId=<?= $revistasId ?>'">
-                                Excluir
-                            </button>
+                        <button class="btn btn-danger" onclick="if(confirm('Deseja realmente excluir este emprestimo? ')) window.location.href = 'index.php?alunoID=<?= $alunoId ?>&livrosID=<?= $livrosId ?>&revistasID=<?= $revistasId ?>'">
+                            Excluir
+                        </button>
                         </td>
                     </tr>
             <?php
@@ -48,15 +48,19 @@ require_once('../header.php');
 </div>
 
 <?php
+
 if (isset($_GET['alunoID']) && isset($_GET['livrosID']) && isset($_GET['revistasID'])) {
     $alunoID = $_GET['alunoID'];
-    $livroID = $_GET['LivrosID'];
-    $revistaID = $_GET['RevistasID'];
-    if (deletarEmprestimos($alunoID, $LivrosID, $RevistasID)) {
-        echo "<div class='alert alert-success mt-3'>Emprestimo excluído com sucesso!</div>";
+    $livrosID = $_GET['livrosID'];
+    $revistasID = $_GET['revistasID'];
+    
+    echo "alunoID: $alunoID, livrosID: $livrosID, revistasID: $revistasID"; // Debugging
+    
+    if (deletarEmprestimos($alunoID, $livrosID, $revistasID)) {
+        echo "<div class='alert alert-success mt-3'>Empréstimo excluído com sucesso!</div>";
         echo "<script>setTimeout(() => { window.location.href = 'index.php'; }, 1000);</script>";
     } else {
-        echo "<div class='alert alert-danger mt-3'>Erro ao excluir emprestimo!</div>";
+        echo "<div class='alert alert-danger mt-3'>Erro ao excluir empréstimo!</div>";
     }
 }
 

@@ -33,7 +33,7 @@ function adicionarLivros($titulo, $autor, $anoPublicacaoLivros)
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':titulo', $titulo);
         $stmt->bindValue(':autor', $autor);
-        $stmt->bindValue(':anoPublicacao', $anoPublicacaoLivros);
+        $stmt->bindValue(':anoPublicacaoLivros', $anoPublicacaoLivros);
         return $stmt->execute();
     } catch (Exception $e) {
         return 0;
@@ -172,7 +172,7 @@ function atualizarAluno($id, $nome, $curso, $matricula)
     }
 }
 
-function atualizarLivros($id, $autor, $titulo, $anoPublicacaoLivros)
+function atualizarLivros($id, $titulo, $autor, $anoPublicacaoLivros)
 {
     try {
         $conexao = conectarBanco();
@@ -243,15 +243,27 @@ function deletarRevistas($id)
     }
 }
 
-function deletarEmprestimos($alunoID, $livrosID)
+function deletarEmprestimos($alunoId, $livrosId, $revistasId)
 {
     try {
         $conexao = conectarBanco();
-        $sql = "DELETE FROM Emprestimo WHERE AlunoID = :alunoID AND LivrosID = :livrosID";
+        $sql = "DELETE FROM Emprestimo WHERE alunoID = :alunoID AND LivrosID = :livrosID AND RevistasID = :revistasID";
         $stmt = $conexao->prepare($sql);
-        $stmt->bindValue(':alunoID', $alunoID);
-        return $stmt->execute();
-    } catch (Exception $e) {
-        return 0;
+        $stmt->bindValue(':alunoID', $alunoId);
+        $stmt->bindValue(':livrosID', $livrosId);
+        $stmt->bindValue(':revistasID', $revistasId);
+        
+        // Executar a query e retornar o resultado
+        if ($stmt->execute()) {
+            return true; // Se executou com sucesso
+        } else {
+            return false; // Se houve algum problema na execução
+        }
+    } catch (PDOException $e) {
+        // Captura e exibe o erro caso ocorra uma exceção PDO
+        echo "Erro ao deletar empréstimo: " . $e->getMessage();
+        return false; // Retorna falso para indicar falha
     }
 }
+
+
