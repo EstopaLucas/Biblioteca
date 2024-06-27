@@ -6,8 +6,8 @@ require_once("../header.php");
 
 <form action="" method="POST">
 <div class="form-group">
-        <label for="titulo">Titulo</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" required>
+        <label for="tituloRevistas">Titulo</label>
+        <input type="text" class="form-control" id="tituloRevistas" name="tituloRevistas" required>
     </div>
     <div class="form-group">
         <label for="volume">Volume</label>
@@ -15,7 +15,7 @@ require_once("../header.php");
     </div>
     <div class="form-group">
         <label for="anoPublicacaoRevistas">Ano de Publicação</label>
-        <input type="number" class="form-control" id="anoPublicacaoRevistas" name="anoPublicacaoRevistas" required>
+        <input type="text" class="form-control" id="anoPublicacaoRevistas" name="anoPublicacaoRevistas" required>
     </div>
     <button type="submit" class="btn btn-primary">Alterar</button>
 </form>
@@ -25,12 +25,14 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     require_once '../funcao.php';
-    $revista = buscarRevistasPorId($id);
+    $tituloRevistas = buscarRevistasPorId($id);
+    $volume = buscarRevistasPorId($id);
+    $anoPublicacaoRevistas = buscarRevistasPorId($id);
 
-    if (is_array($instrutor)) {
-        echo "<script>document.getElementById('titulo').value = '$revista[Titulo]';</script>";
-        echo "<script>document.getElementById('volume').value = '$revista[Volume]';</script>";
-        echo "<script>document.getElementById('anoPublicacaoRevistas').value = '$revista[AnoPublicacaoRevistas]';</script>";
+    if (is_array($tituloRevistas)) {
+        echo "<script>document.getElementById('tituloRevistas').value = '$tituloRevistas[TituloRevistas]';</script>";
+        echo "<script>document.getElementById('volume').value = '$volume[Volume]';</script>";
+        echo "<script>document.getElementById('anoPublicacaoRevistas').value = '$anoPublicacaoRevistas[AnoPublicacaoRevistas]';</script>";
     } else {
         echo "Revista não encontrado.";
     }
@@ -39,14 +41,14 @@ if (isset($_GET['id'])) {
 }
 
 if ($_POST) {
-    $titulo = $_POST['titulo'];
+    $tituloRevistas = $_POST['tituloRevistas'];
     $volume = $_POST['volume'];
     $anoPublicacaoRevistas = $_POST['anoPublicacaoRevistas'];
 
-    if (empty($titulo) || empty($volume) || empty($anoPublicacaoRevistas)) {
+    if (empty($tituloRevistas) || empty($volume) || empty($anoPublicacaoRevistas)) {
         echo "<div class='alert alert-danger mt-3'>Preencha todos os campos!</div>";
     } else {
-        if (atualizarRevistas($id, $titulo, $volume, $anoPublicacaoRevistas)) {
+        if (atualizarRevistas($id, $tituloRevistas, $volume, $anoPublicacaoRevistas)) {
             echo "<div class='alert alert-success mt-3'>Revista alterada com sucesso!</div>";
             echo "<script>setTimeout(() => { window.location.href = 'index.php'; }, 1000);</script>";
         } else {

@@ -20,28 +20,28 @@ require_once("../header.php");
         </select>
     </div>
     <div class="form-group">
-        <label for="livro">Livro</label>
-        <select class="form-control" id="livro" name="livro" required>
+        <label for="livros">Livro</label>
+        <select class="form-control" id="livros" name="livros" required>
             <option value="">Selecione um Livro</option>
             <?php
             $livros = listarLivros();
             while ($l = $livros->fetch(PDO::FETCH_ASSOC)) {
             ?>
-                <option value="<?= $l['ID'] ?>"><?= $l['titulo'] ?></option>
+                <option value="<?= $l['ID'] ?>"><?= $l['Titulo'] ?></option>
             <?php
             }
             ?>
         </select>
     </div>
     <div class="form-group">
-        <label for="revista">Revista</label>
-        <select class="form-control" id="revista" name="revista" required>
+        <label for="revistas">Revista</label>
+        <select class="form-control" id="revistas" name="revistas" required>
             <option value="">Selecione uma revista</option>
             <?php
             $revistas = listarRevistas();
             while ($l = $revistas->fetch(PDO::FETCH_ASSOC)) {
             ?>
-                <option value="<?= $l['ID'] ?>"><?= $l['titulo'] ?></option>
+                <option value="<?= $l['ID'] ?>"><?= $l['TituloRevistas'] ?></option>
             <?php
             }
             ?>
@@ -53,15 +53,15 @@ require_once("../header.php");
 <?php
 if ($_POST) {
     $aluno = $_POST['aluno'];
-    $livro = $_POST['livro'];
-    $revista = $_POST['revista'];
+    $livros = $_POST['livros'];
+    $revistas = $_POST['revistas'];
 
-    if ($aluno == "" || $livro == "" || $revista == "") {
+    if ($aluno == "" || $livros == "" || $revistas == "") {
         echo "<div class='alert alert-danger mt-3'>Preencha todos os campos!</div>";
         return;
     }
 
-    if (adicionarEmprestimo($aluno, $livro, $revista)) {
+    if (adicionarEmprestimo($aluno, $livros, $revistas)) {
         echo "<div class='alert alert-success mt-3'>Emprestimo realizado com sucesso!</div>";
 
         echo "<script>setTimeout(() => { window.location.href = 'index.php'; }, 1000);</script>";

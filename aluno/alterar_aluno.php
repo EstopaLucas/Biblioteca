@@ -26,6 +26,8 @@ if (isset($_GET['id'])) {
 
     require_once '../funcao.php';
     $aluno = buscarAlunoPorId($id);
+    $curso = buscarAlunoPorId($id);
+    $matricula = buscarAlunoPorId($id);
 
     if (is_array($aluno)) {
         echo "<script>document.getElementById('nome').value = '$aluno[Nome]';</script>";

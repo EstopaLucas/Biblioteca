@@ -15,7 +15,7 @@ require_once("../header.php");
     </div>
     <div class="form-group">
         <label for="anoPublicacaoLivros">Ano de Publicação</label>
-        <input type="number" class="form-control" id="anoPublicacaoLivros" name="anoPublicacaoLivros" required>
+        <input type="text" class="form-control" id="anoPublicacaoLivros" name="anoPublicacaoLivros" required>
     </div>
     <button type="submit" class="btn btn-primary">Alterar</button>
 </form>
@@ -25,12 +25,15 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     require_once '../funcao.php';
-    $livros = buscarLivrosPorId($id);
+    $titulo = buscarLivrosPorId($id);
+    $autor = buscarLivrosPorId($id);
+    $anoPublicacaoLivros = buscarLivrosPorId($id);
+    
 
-    if (is_array($livros)) {
-        echo "<script>document.getElementById('titulo').value = '$livros[titulo]';</script>";
-        echo "<script>document.getElementById('autor').value = '$livros[autor]';</script>";
-        echo "<script>document.getElementById('anoPublicacaoLivros').value = '$livros[anoPublicacaoLivros]';</script>";
+    if (is_array($titulo)) {
+        echo "<script>document.getElementById('titulo').value = '$titulo[Titulo]';</script>";
+        echo "<script>document.getElementById('autor').value = '$autor[Autor]';</script>";
+        echo "<script>document.getElementById('anoPublicacaoLivros').value = '$anoPublicacaoLivros[AnoPublicacaoLivros]';</script>";
     } else {
         echo "Livro não encontrado.";
     }

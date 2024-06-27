@@ -23,15 +23,15 @@ require_once("../header.php");
 <?php
 if ($_POST) {
     $nome = $_POST['nome'];
-    $idade = $_POST['curso'];
-    $tipoPlano = $_POST['matricula'];
+    $curso = $_POST['curso'];
+    $matricula = $_POST['matricula'];
 
     if ($nome == "" || $curso == "" || $matricula == "") {
         echo "<div class='alert alert-danger mt-3'>Preencha todos os campos!</div>";
         return;
     }
 
-    if (adicionarMembro($nome, $curso, $matricula)) {
+    if (adicionarAluno($nome, $curso, $matricula)) {
         echo "<div class='alert alert-success mt-3'>Aluno adicionado com sucesso!</div>";
 
         echo "<script>setTimeout(() => { window.location.href = 'index.php'; }, 1000);</script>";

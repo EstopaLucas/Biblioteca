@@ -15,7 +15,7 @@ require_once("../header.php");
     </div>
     <div class="form-group">
         <label for="anoPublicacaoLivros">Ano de Publicação</label>
-        <input type="number" class="form-control" id="anoPublicacaoLivros" name="anoPublicacaoLivros" required>
+        <input type="text" class="form-control" id="anoPublicacaoLivros" name="anoPublicacaoLivros" required>
     </div>
     <button type="submit" class="btn btn-primary">Adicionar</button>
 </form>
