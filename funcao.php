@@ -33,7 +33,7 @@ function adicionarLivros($titulo, $autor, $anoPublicacaoLivros)
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':titulo', $titulo);
         $stmt->bindValue(':autor', $autor);
-        $stmt->bindValue(':anoPublicacaoLivros', $anoPublicacaoLivros);
+        $stmt->bindValue(':anoPublicacao', $anoPublicacaoLivros);
         return $stmt->execute();
     } catch (Exception $e) {
         return 0;
@@ -243,15 +243,13 @@ function deletarRevistas($id)
     }
 }
 
-function deletarEmprestimos($alunoID, $livrosID, $revistasID)
+function deletarEmprestimos($alunoID, $livrosID)
 {
     try {
         $conexao = conectarBanco();
-        $sql = "DELETE FROM Emprestimo WHERE alunoID = :alunoID AND LivrosID = :livrosID AND RevistasID = :revistasID";
+        $sql = "DELETE FROM Emprestimo WHERE AlunoID = :alunoID AND LivrosID = :livrosID";
         $stmt = $conexao->prepare($sql);
         $stmt->bindValue(':alunoID', $alunoID);
-        $stmt->bindValue(':livrosID', $livrosID);
-        $stmt->bindValue(':revistasID', $revistasID);
         return $stmt->execute();
     } catch (Exception $e) {
         return 0;
